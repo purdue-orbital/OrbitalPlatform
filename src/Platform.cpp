@@ -41,12 +41,12 @@ void Platform::setSolenoidActive(int num, bool active){
 	solenoids[num] = active;
 	if(active){
 		digitalWrite(num + START_SOLENOID, HIGH);
-		//Serial.print("Enabled: ");
-		//Serial.println(num + START_SOLENOID);
+		Serial.print("Enabled: ");
+		Serial.println(num + START_SOLENOID);
 	}else{
 		digitalWrite(num + START_SOLENOID, LOW);
-  	//Serial.print("Disabled: ");
-		//Serial.println(num + START_SOLENOID);
+  	Serial.print("Disabled: ");
+		Serial.println(num + START_SOLENOID);
 	}
 }
 void Platform::readData(void){

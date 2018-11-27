@@ -5,7 +5,7 @@ Arduino MPU9250 Library with Solenoid Control
   - Download as zip
   - Extract into your Arduino libraries folder (Usually at /Documents/Arduino/libraries)
 
-## Dependences
+### Dependences
   - Bolder Flight Systems MPU9250 by Brian Taylor (Sketch->Include Library->Manage Libraries->Search "MPU9250")
 
 ### Arduino I2C Connection: 

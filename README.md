@@ -9,4 +9,4 @@ Arduino MPU9250 Library with Solenoid Control
 - SDA -> SDA
 - SCL -> SCL  
 Note: These are system dependent. Connection shown is for the Arduino UNO. 
-Search for '<Arduino Model> Wire pinout' to find specific board pinouts.
+Search for '\<Arduino Model\> Wire pinout' to find specific board pinouts.

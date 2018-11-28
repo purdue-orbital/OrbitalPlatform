@@ -1,3 +1,21 @@
+///////////////////////////////////////////////////////////
+//
+//  Top view of the platform control system. Each number
+//  corresponds to a solenoid. The arrow indicates the
+//  direction of air flow when the solenoid is open.
+//
+//                <-1 2->
+//        ^         | |         ^
+//        |         | |         |
+//        8---------------------3
+//        7---------------------4
+//        |         | |         |
+//        v         | |         v
+//                <-6 5->
+//
+///////////////////////////////////////////////////////////
+
+
 #include <Platform.h>
 
 #define CAL_POINT (200) //Number of calibration points for the gyroscope
@@ -30,11 +48,18 @@ void setup() {
     success = plat.initialize();
     delay(5000);
   }
-
-  calibrate_gyro(); //Ensure the IMU is not moving or rotating during calibration
-  
   Serial.println("IMU Enabled");
   digitalWrite(LED_BUILTIN, HIGH); 
+
+  Serial.println("Calibrating..");
+  calibrate_gyro(); //Ensure the IMU is not moving or rotating during calibration
+  Serial.print("Done. Offsets: ");
+  Serial.print(gyro_cal.x);
+  Serial.print(", ");
+  Serial.print(gyro_cal.y);
+  Serial.print(", ");
+  Serial.print(gyro_cal.z);
+  Serial.print("\n");
 }
 
 void loop() {
@@ -69,13 +94,15 @@ void printData() {
   Serial.print("\n");
 }
 
-void activateSolenoids(unsigned char code) {
-  //TODO
-  
-  //Each of the 8 bits in the argument represent a solenoid
-  //Bits with value 1 open the corresponding solenoid
-  //Bits with value 0 close the corresponding solenoid
 
+/*  This function turns on a set of solenoids. Each of the 8 bits 
+ *  in the argument represent a solenoid. Bits with value 1 open
+ *  the corresponding solenoid. Bits with value 0 close the 
+ *  corresponding solenoid.
+ */
+void activateSolenoids(unsigned char code) {
+  //TODO: Requires further testing
+ 
   unsigned char on = 1;
 
   for (int i = 0; i < TOTAL_SOLENOIDS; i++) {
@@ -85,7 +112,7 @@ void activateSolenoids(unsigned char code) {
     else {
       plat.setSolenoid(i, false);
     }
-    on = on << 1;
+    on = on << 1; //advance to the next solenoid
   }
 }
 

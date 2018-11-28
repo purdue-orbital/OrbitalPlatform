@@ -11,5 +11,6 @@ Arduino MPU9250 Library with Solenoid Control
 ### Arduino I2C Connection: 
 - SDA -> SDA
 - SCL -> SCL  
+- ADO -> GND
 Note: These are system dependent. Connection shown is for the Arduino UNO. 
 Search for '\<Arduino Model\> Wire pinout' to find specific board pinouts.

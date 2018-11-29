@@ -12,6 +12,7 @@
 class Platform{
 	public:
 		Platform();
+		Platform::Platform(int* pins, int length);
 		bool initialize();
 		void getAccel(Vector*);
 		void getGyro(Vector* vector);

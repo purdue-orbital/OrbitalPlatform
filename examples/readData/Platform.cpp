@@ -9,7 +9,9 @@ int START_SOLENOID = 2;
 int TOTAL_SOLENOIDS = 8;
 
 bool solenoids[8];
+
 int* solenoidPins; // Array of solenoid pins
+bool pinsDefined = false;
 
 Platform::Platform(){ // Default Constructor. Uses pins START_SOLENOID to START_SOLENOID + TOTAL_SOLENOIDS
 	solenoidPins = (int*) malloc(sizeof(int) * TOTAL_SOLENOIDS);

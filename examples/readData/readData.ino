@@ -4,10 +4,7 @@
 	Reads data from a MPU9250, prints gyroscope data to console, and turns a solenoid is it is rotating > 0.5 rads/s
 
 */
-
-
 #include <Platform.h>
-
 Platform plat = Platform();
 
 void setup(){

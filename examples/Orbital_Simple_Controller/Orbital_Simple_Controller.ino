@@ -2,7 +2,8 @@
 //
 //  Top view of the platform control system. Each number
 //  corresponds to a solenoid. The arrow indicates the
-//  direction of air flow when the solenoid is open.
+//  direction of air flow when the solenoid is open. The
+//  IMU should be placed at the center of the cross.
 //
 //                <-1 2->
 //        ^         | |         ^
@@ -19,11 +20,11 @@
 #include <Platform.h>
 
 #define CAL_POINT (200) //Number of calibration points for the gyroscope
-#define C_CLOCKWISE (0.3) //rad/s
-#define CLOCKWISE (-0.3) //rad/s
+#define CLOCKWISE_MAX (-0.3) //rad/s
+#define C_CLOCKWISE_MAX (0.3) //rad/s
 
-#define CLOCKWISE_PUSH (170) //8-bit representation of clockwise solenoids
-#define C_CLOCKWISE_PUSH (85) //8-bit representation of counter-clockwise solenoids
+#define CLOCKWISE_PUSH (85) //8-bit representation of clockwise solenoids
+#define C_CLOCKWISE_PUSH (170) //8-bit representation of counter-clockwise solenoids
 #define CLOSE_ALL (0) //Used to close all solenoids
 
 Platform plat = Platform();
@@ -32,9 +33,11 @@ Vector accel; // m/s^2
 Vector gyro;  // rad/s
 Vector mag;   // uT
 
-Vector accel_cal = {0.0, 0.0, 0.0};
-Vector gyro_cal = {0.0, 0.0, 0.0};
-Vector mag_cal = {0.0, 0.0, 0.0};
+Vector gyro_cal = {0.0, 0.0, 0.0}; //Offset when the IMU is still
+
+/*  Set up the IMU, calibrate the gyroscope, print the
+ *  initial offset to the serial output.
+ */
 
 void setup() {
   Serial.begin(115200);
@@ -62,6 +65,11 @@ void setup() {
   Serial.print("\n");
 }
 
+/*  Read all the data from the IMU. Adjust the gyroscope according
+ *  to the calibration. Active solenoids depending on the
+ *  rotation of the platform.
+ */
+
 void loop() {
   plat.readData();
   
@@ -71,18 +79,22 @@ void loop() {
   sub_vector(&gyro, &gyro_cal);
 
   printData();
-  if (gyro.z > C_CLOCKWISE) {
+  if (gyro.z > C_CLOCKWISE_MAX) {
     activateSolenoids(CLOCKWISE_PUSH);
-    //LED1
+    //LED 1 placed in parallel
   }
-  else if (gyro.z < CLOCKWISE) {
+  else if (gyro.z < CLOCKWISE_MAX) {
     activateSolenoids(C_CLOCKWISE_PUSH);
-    //LED2
+    //LED 2 placed in parallel
   }
   else {
     activateSolenoids(CLOSE_ALL);
   }
 }
+
+/*  Print out the gyroscope data from the accelerometer
+ *  to 6 figures.
+ */
 
 void printData() {
   Serial.print("Gyro (rad/s): ");
@@ -105,7 +117,7 @@ void activateSolenoids(unsigned char code) {
  
   unsigned char on = 1;
 
-  for (int i = 0; i < TOTAL_SOLENOIDS; i++) {
+  for (int i = 1; i <= TOTAL_SOLENOIDS; i++) {
     if ((code & on) == on) {
       plat.setSolenoid(i, true);
     }
@@ -115,6 +127,12 @@ void activateSolenoids(unsigned char code) {
     on = on << 1; //advance to the next solenoid
   }
 }
+
+/*  Take a large number of data points from the gyroscope.
+ *  Calculate the average value to detemine the offset, if
+ *  any. The IMU must be still during the calibration
+ *  of the gyroscope.
+ */
 
 void calibrate_gyro() {
   for (int i = 0; i < CAL_POINTS; i++) {
@@ -128,6 +146,9 @@ void calibrate_gyro() {
   gyro_cal.y /= CAL_POINTS;
   gyro_cal.z /= CAL_POINTS;
 }
+
+/*  Subtract each element of the two vectors
+ */
 
 void sub_vector(Vector *v1, Vector *v2) {
   v1->x -= v2->x;

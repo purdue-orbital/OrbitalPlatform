@@ -28,7 +28,9 @@
 #define C_CLOCKWISE_PUSH (170) //8-bit representation of counter-clockwise solenoids
 #define CLOSE_ALL (0) //Used to close all solenoids
 
-Platform plat = Platform();
+int pins[8] = {4, 5, 6};
+
+Platform plat = Platform(pins, 3);
 
 Vector accel; // m/s^2
 Vector gyro;  // rad/s
@@ -82,11 +84,9 @@ void loop() {
   printData();
   if (gyro.z > C_CLOCKWISE_MAX) {
     activateSolenoids(CLOCKWISE_PUSH);
-    //LED 1 placed in parallel
   }
   else if (gyro.z < CLOCKWISE_MAX) {
     activateSolenoids(C_CLOCKWISE_PUSH);
-    //LED 2 placed in parallel
   }
   else {
     activateSolenoids(CLOSE_ALL);

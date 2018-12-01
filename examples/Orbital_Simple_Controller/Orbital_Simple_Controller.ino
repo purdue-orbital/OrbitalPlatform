@@ -19,9 +19,10 @@
 
 #include <Platform.h>
 
-#define CAL_POINT (200) //Number of calibration points for the gyroscope
+#define CAL_POINTS (200) //Number of calibration points for the gyroscope
 #define CLOCKWISE_MAX (-0.3) //rad/s
 #define C_CLOCKWISE_MAX (0.3) //rad/s
+#define TOTAL_SOLENOIDS (8)
 
 #define CLOCKWISE_PUSH (85) //8-bit representation of clockwise solenoids
 #define C_CLOCKWISE_PUSH (170) //8-bit representation of counter-clockwise solenoids
@@ -119,10 +120,10 @@ void activateSolenoids(unsigned char code) {
 
   for (int i = 1; i <= TOTAL_SOLENOIDS; i++) {
     if ((code & on) == on) {
-      plat.setSolenoid(i, true);
+      plat.setSolenoidActive(i, true);
     }
     else {
-      plat.setSolenoid(i, false);
+      plat.setSolenoidActive(i, false);
     }
     on = on << 1; //advance to the next solenoid
   }

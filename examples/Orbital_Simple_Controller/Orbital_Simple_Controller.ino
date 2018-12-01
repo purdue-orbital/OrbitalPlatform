@@ -28,7 +28,7 @@
 #define C_CLOCKWISE_PUSH (170) //8-bit representation of counter-clockwise solenoids
 #define CLOSE_ALL (0) //Used to close all solenoids
 
-int pins[8] = {4, 5, 6};
+int pins[8] = {4, 6, 5};
 
 Platform plat = Platform(pins, 3);
 

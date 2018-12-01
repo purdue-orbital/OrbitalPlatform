@@ -29,13 +29,6 @@ bool Platform::initialize(void){
 	return true;
 	
 	IMU9250.setAccelRange(MPU9250::ACCEL_RANGE_16G);
-  // setting the gyroscope full scale range to +/-500 deg/s
-  IMU9250.setGyroRange(MPU9250::GYRO_RANGE_500DPS);
-  // setting DLPF bandwidth to 20 Hz
-  IMU9250.setDlpfBandwidth(MPU9250::DLPF_BANDWIDTH_20HZ);
-  // setting SRD to 19 for a 50 Hz update rate
-  IMU9250.setSrd(19);
-		
 		
 	for(int i = 0; i < TOTAL_SOLENOIDS; i++){
 		solenoids[i] = false;

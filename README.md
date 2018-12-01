@@ -1,5 +1,5 @@
 # OrbitalPlatform
-Arduino MPU9250 Library with Solenoid Control
+Arduino MPU9250 Wrapper Library with Solenoid Control
 
 ### Usage:
   - Download as zip

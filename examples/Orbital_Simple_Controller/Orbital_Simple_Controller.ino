@@ -22,7 +22,7 @@
 #define CAL_POINTS (200) //Number of calibration points for the gyroscope
 #define CLOCKWISE_MAX (-0.3) //rad/s
 #define C_CLOCKWISE_MAX (0.3) //rad/s
-#define TOTAL_SOLENOIDS (8)
+#define TOTAL_SOLENOIDS (3) //TEMPORARY. Switch back to 8 after testing
 
 #define CLOCKWISE_PUSH (85) //8-bit representation of clockwise solenoids
 #define C_CLOCKWISE_PUSH (170) //8-bit representation of counter-clockwise solenoids

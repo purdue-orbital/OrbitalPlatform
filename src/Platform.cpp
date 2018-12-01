@@ -45,21 +45,34 @@ bool Platform::initialize(void){
 	
 }
 
+void Platform::printPins(){
+	Serial.print("Pins: {");
+	for(int i = 0; i < TOTAL_SOLENOIDS - 1; i++){
+		Serial.print(solenoidPins[i]);
+		Serial.print(", ");
+	}
+	Serial.print(solenoidPins[TOTAL_SOLENOIDS - 1]);
+	Serial.println("}");
+}
+
 bool Platform::isSolenoidActive(int num){
 	return solenoids[num-1];
 }
 
 void Platform::setSolenoidActive(int num, bool active){
+	
+	if(solenoids[num-1] == active) return;
+	
 	solenoids[num-1] = active;
 	
 	if(active){
 		digitalWrite(solenoidPins[num-1], HIGH);
-		//Serial.print("Enabled: ");
-		//Serial.println(num + START_SOLENOID);
+		Serial.print("Enabled: ");
+		Serial.println(solenoidPins[num-1]);
 	}else{
 		digitalWrite(solenoidPins[num-1], LOW);
-  	//Serial.print("Disabled: ");
-		//Serial.println(num + START_SOLENOID);
+  	Serial.print("Disabled: ");
+		Serial.println(solenoidPins[num-1]);
 	}
 }
 void Platform::readData(void){

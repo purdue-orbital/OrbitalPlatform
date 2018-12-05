@@ -4,6 +4,7 @@ Arduino MPU9250 Wrapper Library with Solenoid Control
 ### Usage:
   - Download as zip
   - Extract into your Arduino libraries folder (Usually at /Documents/Arduino/libraries)
+  - Install Dependencies
 
 ### Dependencies
   - Bolder Flight Systems MPU9250 by Brian Taylor (Sketch->Include Library->Manage Libraries->Search "MPU9250")

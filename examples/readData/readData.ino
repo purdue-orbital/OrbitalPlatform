@@ -7,7 +7,7 @@
 #include <Platform.h>
 
 //int pins[8] = {2, 3, 4, 5, 6, 7, 8, 9};
-int pins[8] = {4, 5, 6};
+int pins[3] = {4, 5, 6};
 
 //Platform plat = Platform(pins, 8);
 Platform plat = Platform(pins, 3);

@@ -8,7 +8,7 @@ int stat;
 int START_SOLENOID = 2;
 int TOTAL_SOLENOIDS = 8;
 
-bool solenoids[8];
+bool solenoids[8] = {0};
 int* solenoidPins; // Array of solenoid pins
 
 Platform::Platform(){ // Default Constructor. Uses pins START_SOLENOID to START_SOLENOID + TOTAL_SOLENOIDS
@@ -26,7 +26,8 @@ Platform::Platform(int* pins, int length){ // Constructor using given pins
 bool Platform::initialize(void){
 	stat = IMU9250.begin();
 	if(stat < 0) return false;
-	return true;
+	
+
 	
 	IMU9250.setAccelRange(MPU9250::ACCEL_RANGE_16G);
 		
@@ -35,6 +36,8 @@ bool Platform::initialize(void){
 		//pinMode(i + START_SOLENOID, OUTPUT);
 		pinMode(solenoidPins[i], OUTPUT);
 	}	
+
+  return true;
 	
 }
 

@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "Platform.h"
 #include "MPU9250.h"
+#include "Wire.h"
 
 MPU9250 IMU9250(Wire,0x68);
 int stat;
@@ -63,12 +64,12 @@ void Platform::setSolenoidActive(int num, bool active){
 	
 	if(active){
 		digitalWrite(solenoidPins[num-1], HIGH);
-		Serial.print("Enabled: ");
-		Serial.println(solenoidPins[num-1]);
+		//Serial.print("Enabled: ");
+		//Serial.println(solenoidPins[num-1]);
 	}else{
 		digitalWrite(solenoidPins[num-1], LOW);
-  	Serial.print("Disabled: ");
-		Serial.println(solenoidPins[num-1]);
+		//Serial.print("Disabled: ");
+		//Serial.println(solenoidPins[num-1]);
 	}
 }
 void Platform::readData(void){
